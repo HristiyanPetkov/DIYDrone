@@ -14,3 +14,4 @@
 * ESC 20mA x 4
 * 6DOF MPU-6050 Module 3
 * F450 HJ450 4-Axis DJI Quadcopter рамка
+* 11.1V 2700mA/h 30C - батерия
