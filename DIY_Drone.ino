@@ -78,8 +78,6 @@ void setup(){
     }
     battery_voltage = (analogRead(0) + 65) * 1.2317;
     loop_timer = micros();
-    digitalWrite(12, LOW);
-
 }
 
 void loop() {
