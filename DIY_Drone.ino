@@ -221,26 +221,52 @@ void loop() {
         }
     }
 
-    ISR(PCINT0_vect)
-    {
+    ISR(PCINT0_vect){
         current_time = micros();
-
-        for (int i = 0; i < 4; i++) {
-            int pin_mask = 1 << i;
-            int *last_ch = &last_channel[i];
-            uint32_t *ch_timer = &timer[i];
-            uint16_t *ch_input = &receiver_input[i + 1];
-            if (PINB & pin_mask) { // channel is high
-                if (*last_ch == 0) { // channel was low before
-                    *last_ch = 1;
-                    *ch_timer = current_time;
-                }
-            } else { // channel is low
-                if (*last_ch == 1) { // channel was high before
-                    *last_ch = 0;
-                    *ch_input = current_time - *ch_timer;
-                }
+        //Channel 1=========================================
+        if(PINB & B00000001){                                   
+            if(last_channel[0] == 0){                                     
+                last_channel[0] = 1;                                          
+                timer[0] = current_time;                                       
             }
+        }
+        else if(last_channel[0] == 1){                                
+            last_channel[0] = 0;                                           
+            receiver_input[1] = current_time - timer[0];                       
+        }
+        //Channel 2=========================================
+        if(PINB & B00000010 ){                                       
+            if(last_channel[1] == 0){                                   
+                last_channel[1] = 1;                                     
+                timer[1] = current_time;                           
+            }
+        }
+        else if(last_channel[1] == 1){                                   
+            last_channel[1];                                      
+            receiver_input[2] = current_time - timer[1];             
+        }
+        //Channel 3=========================================
+        if(PINB & B00000100 ){                                     
+            if(last_channel[2] == 0){                              
+                last_channel[2] = 1;                                        
+                timer[2] = current_time;                                     
+            }
+        }
+        else if(last_channel[2] == 1){                                       
+            last_channel[2] = 0;                                           
+            receiver_input[3] = current_time - timer[2];                       
+
+        }
+        //Channel 4=========================================
+        if(PINB & B00001000 ){                                                 
+            if(last_channel[3] == 0){                                   
+                last_channel[3] = 1;                                        
+                timer[3] = current_time;                                              
+            }
+        }
+        else if(last_channel[3] == 1){                                             
+            last_channel[3] = 0;                                                     
+            receiver_input[4] = current_time - timer[3];                             
         }
     }
 
