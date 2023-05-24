@@ -55,7 +55,14 @@ void setup(){
     while (eeprom_data[33] != 'J' || eeprom_data[34] != 'M' || eeprom_data[35] != 'B') {
         delay(10);
     }
-    set_gyro_registers();
+    
+    //set registers for reciever
+    PCICR |= (1 << PCIE0);
+    PCMSK0 |= (1 << PCINT0);                                  
+    PCMSK0 |= (1 << PCINT1);                                
+    PCMSK0 |= (1 << PCINT2);                                 
+    PCMSK0 |= (1 << PCINT3);  
+    
     for (int i = 0; i < gyro_calibration_samples; i++) {
         PORTD |= 0xF0;
         delayMicroseconds(1000);
