@@ -26,7 +26,6 @@ int cal_int, start, gyro_address;
 int receiver_input[5];
 int acc_axis[4], gyro_axis[4];
 float roll_level_adjust, pitch_level_adjust;
-TWBR = 12;
 long acc_x, acc_y, acc_z, acc_total_vector;
 unsigned long esc_loop_timer;
 unsigned long current_time;
@@ -49,6 +48,8 @@ void setup(){
     gyro_address = eeprom_data[32];
     int gyro_calibration_samples = eeprom_data[31] == 2 || eeprom_data[31] == 3 ? 1250 : 0;
     Wire.begin();
+    TWBR = 12;
+
     DDRD |= 0xF0;
     DDRB |= 0x30;
     digitalWrite(12, HIGH);
